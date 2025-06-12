@@ -15,7 +15,6 @@ import java.sql.Date;
 import javax.swing.JOptionPane;
 import modelo.Notas;
 
-
 /**
  *
  * @author hmq48
