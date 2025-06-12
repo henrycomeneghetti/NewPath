@@ -193,10 +193,7 @@ public class TelaAdicionaNota extends javax.swing.JFrame {
                 notasDao.atualizaNota(notas);
                 JOptionPane.showMessageDialog(null, "Atualizado com sucesso! Recarregue a Página!");
                 this.dispose();
-               
-                
-                
-                
+         
             }
             
             
