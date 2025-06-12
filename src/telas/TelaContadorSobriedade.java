@@ -1,0 +1,293 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package newpath.telas;
+
+import dao.ContadorDao;
+import java.awt.Color;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import modelo.Contador;
+import java.util.concurrent.TimeUnit;
+
+
+/**
+ *
+ * @author hmq48
+ */
+public class TelaContadorSobriedade extends javax.swing.JFrame {
+    private String usuarioLogin;
+
+    /**
+     * Creates new form TelaContadorSobriedade
+     */
+    
+    public TelaContadorSobriedade() {
+    initComponents();
+   
+    
+}
+    public TelaContadorSobriedade(String loginUsuario) {
+        initComponents();
+        getContentPane().setBackground(new Color(40, 40, 40));
+        
+        Date dataEntrada;
+        LocalDate  atualData = LocalDate.now(); 
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String dataStr = atualData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
+            dataEntrada = new Date(format.parse(dataStr).getTime());
+            } 
+        
+        catch (ParseException e) {
+        throw new RuntimeException(e);
+        }
+        
+        Contador contador = new Contador();
+        contador.setLogin(loginUsuario);
+        ContadorDao contadorDao = new ContadorDao();
+        Contador contadorComData = contadorDao.getDataAtualByLogin(loginUsuario);
+        Date dataAtual = contadorComData.getDataAtual();
+        String vicio = contadorComData.getVicio();
+        if (dataAtual != null) {
+            long diferencaMillis = dataEntrada.getTime() - dataAtual.getTime();
+            long diasSobriedade = TimeUnit.MILLISECONDS.toDays(diferencaMillis);
+            String diasSobriedadeStr = String.valueOf(diasSobriedade);
+            lblDias.setText(diasSobriedadeStr);
+            lblParabens.setText("Parabéns, " + loginUsuario + "!");
+            lblLivre.setText("Você está livre de " + vicio + " há:");
+            int diasSobriedadeInt = (int) diasSobriedade;  
+            lblIncentivo.setText("Continue firme!");
+            if (diasSobriedadeInt == 0){
+                lblIncentivo.setText("Você já deu o primeiro passo, continue firme!");
+            }
+            if (diasSobriedadeInt == 1) {
+                lblIncentivo.setText("Você já está sobrio há um dia, continue firme!");
+            }
+            if (diasSobriedadeInt == 7) {
+                lblIncentivo.setText("<html>Hoje faz uma semana que está livre de " + vicio + "!" + "<br><div style='text-align: center;'>Meus parabéns!</html>");
+                lblDias.setText("1");
+                lblDia.setText("Semana");
+            }
+            if(diasSobriedadeInt == 30) {
+                lblIncentivo.setText("<html>Hoje faz um mês que está livre de " + vicio + "!" + "<br><div style='text-align: center;'>Meus parabéns!</html>");
+                lblDias.setText("1");
+                lblDia.setText("Mês!");
+            }
+            if(diasSobriedadeInt == 365){
+                lblIncentivo.setText("<html>Hoje faz um ano que está livre de " + vicio + "!" + "<br><div style='text-align: center;'>Meus parabéns!</html>");
+                lblDias.setText("1");
+                lblDia.setText("ANO!");
+            }
+            
+            
+        }
+        else {
+            LocalDate  atualData2 = LocalDate.now();
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String dataStr = atualData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
+                dataAtual = new Date(format.parse(dataStr).getTime());
+                long diferencaMillis = dataEntrada.getTime() - dataAtual.getTime();
+                long diasSobriedade = TimeUnit.MILLISECONDS.toDays(diferencaMillis);
+                String diasSobriedadeStr = String.valueOf(diasSobriedade);
+                lblDias.setText(diasSobriedadeStr);
+                lblParabens.setText("Parabéns, " + usuarioLogin + "!");
+                if (vicio == null) {
+                    vicio = "Drogas";
+                }
+                lblLivre.setText("Você está livre de " + vicio + " há:");
+                lblIncentivo.setText("Você já deu o primeiro passo, continue firme!");
+                
+
+                
+            } 
+        
+            catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
+        if (vicio == null){
+            vicio = "default";
+        }
+        
+        
+        
+               
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        lblParabens = new javax.swing.JLabel();
+        lblLivre = new javax.swing.JLabel();
+        lblDias = new javax.swing.JLabel();
+        lblDia = new javax.swing.JLabel();
+        lblIncentivo = new javax.swing.JLabel();
+        btnFechar = new GradientButton1("Fechar");
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        lblParabens.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblParabens.setForeground(new java.awt.Color(255, 255, 255));
+        lblParabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParabens.setText("jLabel1");
+        lblParabens.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblLivre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblLivre.setForeground(new java.awt.Color(255, 255, 255));
+        lblLivre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLivre.setText("jLabel1");
+
+        lblDias.setFont(new java.awt.Font("Segoe UI", 0, 70)); // NOI18N
+        lblDias.setForeground(new java.awt.Color(255, 255, 255));
+        lblDias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDias.setText("jLabel1");
+        lblDias.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        lblDia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDia.setForeground(new java.awt.Color(255, 255, 255));
+        lblDia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDia.setText("DIAS");
+        lblDia.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        lblIncentivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblIncentivo.setForeground(new java.awt.Color(255, 255, 255));
+        lblIncentivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIncentivo.setText("jLabel1");
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Contador de Sobriedade");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnFechar)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblParabens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblLivre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblIncentivo, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(lblParabens)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLivre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDias)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(lblIncentivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFechar)
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        
+    }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaContadorSobriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaContadorSobriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaContadorSobriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaContadorSobriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TelaContadorSobriedade("usuarioTeste").setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lblDia;
+    private javax.swing.JLabel lblDias;
+    private javax.swing.JLabel lblIncentivo;
+    private javax.swing.JLabel lblLivre;
+    private javax.swing.JLabel lblParabens;
+    // End of variables declaration//GEN-END:variables
+}
