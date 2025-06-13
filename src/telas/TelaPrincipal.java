@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package newpath.telas;
+package telas;
 
 import dao.ContadorDao;
 import java.awt.Color;
@@ -23,6 +23,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import modelo.Contador;
  import javax.swing.Timer;
+import newpath.telas.GradientButton;
+import newpath.telas.GradientButton1;
+import newpath.telas.ImagePanel;
+import newpath.telas.TelaContadorSobriedade;
+import newpath.telas.TelaEstimativaDeEconomia;
+import newpath.telas.TelaNotas;
 
 /**
  *

@@ -4,6 +4,7 @@
  */
 package newpath.telas;
 
+import telas.TelaPrincipal;
 import dao.NotasDao;
 import java.awt.Color;
 import java.util.List;

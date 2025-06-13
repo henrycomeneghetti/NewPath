@@ -4,6 +4,7 @@
  */
 package newpath.telas;
 
+import telas.TelaPrincipal;
 import dao.ContatoDao;
 import java.awt.Color;
 import javax.swing.JOptionPane;

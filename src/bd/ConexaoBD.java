@@ -14,8 +14,8 @@ import java.sql.Statement;
  * @author hmq48
  */
 public class ConexaoBD {
-    private static String USERNAME = "root";
-    private static String PASSWORD = "hmq48088";
+    private static String USERNAME = "newpath";
+    private static String PASSWORD = "1234";
     private static String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static String DB_NOME = "newpath";
     private static String URL = "jdbc:mysql://localhost:3306/" + DB_NOME;
