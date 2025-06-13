@@ -8,6 +8,7 @@ import dao.ContadorDao;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,7 @@ public class ImagePanel extends javax.swing.JPanel {
 
    private Image imagem;
 
-    public ImagePanel(String caminhoImagem) {
+    public ImagePanel(URL caminhoImagem) {
         this.imagem = new ImageIcon(caminhoImagem).getImage();
     }
     

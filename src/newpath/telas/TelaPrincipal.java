@@ -44,7 +44,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             initComponents();
             this.loginUsuario = login;
             getContentPane().setBackground(new Color(40, 40, 40));
-            ImagePanel imgPanel1 = new ImagePanel(getClass().getResource("/img/logo.png").getPath());
+            ImagePanel imgPanel1 = new ImagePanel(getClass().getResource("/img/logo.png"));
+
             imgPanel1.setBounds(panelLogo.getBounds());
             this.remove(panelLogo);
             this.add(imgPanel1);
@@ -86,7 +87,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                
             }
             if (diasSobriedadeInt == 1){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/1.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/1.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -101,7 +102,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
             if (diasSobriedadeInt == 2){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/2.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/2.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -116,7 +117,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
             if (diasSobriedadeInt == 3){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/3.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/3.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -131,7 +132,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
             if (diasSobriedadeInt == 4){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/4.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/4.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -146,7 +147,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
              if (diasSobriedadeInt == 5){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/5.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/5.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -161,7 +162,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
              if (diasSobriedadeInt == 6){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/6.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/6.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -178,7 +179,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
              
             
             if (diasSobriedadeInt >= 7 && diasSobriedadeInt < 30){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/7.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/7.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -193,7 +194,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
             if (diasSobriedadeInt >= 30 && diasSobriedadeInt < 365){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/8.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/8.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
@@ -207,7 +208,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             });
             }
             if (diasSobriedadeInt >= 365){
-            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/9.png").getPath());
+            ImagePanel imgPanel = new ImagePanel(getClass().getResource("/img/9.png"));
             imgPanel.setBounds(panelImagem.getBounds());
             this.remove(panelImagem);
             this.add(imgPanel);
