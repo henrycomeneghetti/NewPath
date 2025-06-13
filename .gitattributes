@@ -1,6 +1,7 @@
-*.html linguist-detectable=false
-*.tex linguist-detectable=false
-/build/** linguist-detectable=false
-/img/** linguist-detectable=false
-*.exe linguist-detectable=false
-*.spec linguist-detectable=false
+*.java linguist-language=Java
+*.xml linguist-generated
+*.txt linguist-generated
+*.md linguist-generated
+*.mf linguist-generated
+*.yml linguist-generated
+
