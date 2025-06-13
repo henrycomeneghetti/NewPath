@@ -1,0 +1,7 @@
+*.java linguist-language=Java
+*.xml linguist-generated
+*.txt linguist-generated
+*.md linguist-generated
+*.mf linguist-generated
+*.yml linguist-generated
+
