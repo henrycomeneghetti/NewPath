@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package newpath.telas;
+package telas;
 
 import dao.ContadorDao;
 import java.awt.Color;
@@ -28,6 +28,10 @@ public class ImagePanel extends javax.swing.JPanel {
    private Image imagem;
 
     public ImagePanel(URL caminhoImagem) {
+        if (caminhoImagem == null) {
+            System.err.println("Erro: imagem não encontrada!");
+            return;
+        }
         this.imagem = new ImageIcon(caminhoImagem).getImage();
     }
     

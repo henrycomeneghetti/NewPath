@@ -52,6 +52,14 @@ public class ContatoDao {
             "ON DELETE CASCADE" +
             ");";
             stmt.execute(sqlNotas);
+            String sqlHumor = "CREATE TABLE IF NOT EXISTS humorusuario ("+
+            "login VARCHAR(50)," +
+            "dataHumor date not null,"+
+            "valor int not null," +
+            "FOREIGN KEY (login) REFERENCES contato(login)" +
+            "ON DELETE CASCADE" +
+            ");";
+            stmt.execute(sqlHumor);
             
         }
         catch (SQLException e) {
@@ -222,5 +230,44 @@ public class ContatoDao {
         }
     }
     
+    public void atualizaData(Contato contato){
+        String sql = "UPDATE Contato SET dataAtual = ? WHERE login = ? ";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(sql);
+           
+            ps.setDate(1, contato.getDataAtual());
+            ps.setString(2, contato.getLogin());
+    
+            
+            ps.execute();
+            ps.close();
+        }
+         catch(SQLException e)  {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Contato getContatoByLogin(String loginUsuario) {
+        Contato contato = new Contato();
+        String sql = "SELECT * FROM Contato WHERE login = ?";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, loginUsuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                 contato.setNome(rs.getString("nome"));
+                 System.out.println("Nome encontrado: " + contato.getNome());
+            } 
+            else {
+                 System.out.println("Nenhum contato encontrado com esse login.");
+            }
+            rs.close();
+            ps.close();
+            return contato;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     
 }

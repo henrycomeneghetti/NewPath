@@ -5,14 +5,13 @@
 package telas;
 
 import dao.ContadorDao;
+import dao.ContatoDao;
+import dao.HumorDao;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
+
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,22 +19,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Contador;
  import javax.swing.Timer;
-import newpath.telas.GradientButton;
-import newpath.telas.GradientButton1;
-import newpath.telas.ImagePanel;
-import newpath.telas.TelaContadorSobriedade;
-import newpath.telas.TelaEstimativaDeEconomia;
-import newpath.telas.TelaNotas;
+import modelo.Contato;
+import modelo.Humor;
+
 
 /**
  *
  * @author hmq48
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    private String loginUsuario;
+    public String loginUsuario;
     
 
     /**
@@ -58,12 +55,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.repaint();
             menuNewPath.setBackground(new Color(40, 40, 40));
             
-
-
-
-            
-            
-           
             lblOla.setText("Bem-vindo, " + loginUsuario + "!");
             Date dataEntrada;
             LocalDate  atualData = LocalDate.now(); 
@@ -76,7 +67,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-        
+            HumorDao humorDao = new HumorDao();
+            boolean humorRegistro = humorDao.verificaHumor(dataEntrada, loginUsuario);
+            if (humorRegistro == true){
+                sliderHumor.setVisible(false);
+                lblValor.setVisible(false);
+                btnRegistrar.setVisible(false);
+            }
+            else {
+                
+                lblHumorRegistrado.setText("Em uma escala de 0 a 10, como está seu humor hoje?");
+            }
             Contador contador = new Contador();
             contador.setLogin(loginUsuario);
             ContadorDao contadorDao = new ContadorDao();
@@ -286,6 +287,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2 = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         lblOla = new javax.swing.JLabel();
         btnNotas = new GradientButton("Notas");
         btnContadorSobriedade = new GradientButton("Contador");
@@ -294,9 +297,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         panelImagem = new javax.swing.JPanel();
         btnEstimativaEconomia = new GradientButton("Economia");
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         panelLogo = new java.awt.Panel();
         lblFrase = new javax.swing.JLabel();
+        btnHumor = new GradientButton("Humor");
+        btnRecaida = new GradientButton1("recaida");
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        sliderHumor = new javax.swing.JSlider();
+        lblValor = new javax.swing.JLabel();
+        btnRegistrar = new GradientButton("botao");
+        lblHumorRegistrado = new javax.swing.JLabel();
         menuNewPath = new javax.swing.JMenuBar();
         newpath = new javax.swing.JMenu();
 
@@ -304,6 +314,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
+
+        jButton1.setText("jButton1");
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 255));
@@ -378,10 +392,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         panelLogo.setBackground(new java.awt.Color(40, 40, 40));
         panelLogo.setForeground(new java.awt.Color(40, 40, 40));
 
@@ -396,9 +406,66 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 80, Short.MAX_VALUE)
         );
 
+        lblFrase.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblFrase.setForeground(new java.awt.Color(255, 255, 255));
         lblFrase.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFrase.setText("Um Novo Caminho para a mudança de vida");
+
+        btnHumor.setBackground(new java.awt.Color(0, 0, 255));
+        btnHumor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHumor.setForeground(new java.awt.Color(255, 255, 255));
+        btnHumor.setText("Humor");
+        btnHumor.setAutoscrolls(true);
+        btnHumor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHumorActionPerformed(evt);
+            }
+        });
+
+        btnRecaida.setBackground(new java.awt.Color(0, 0, 255));
+        btnRecaida.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btnRecaida.setForeground(new java.awt.Color(255, 255, 255));
+        btnRecaida.setText("Registrar Recaída");
+        btnRecaida.setAutoscrolls(true);
+        btnRecaida.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRecaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecaidaActionPerformed(evt);
+            }
+        });
+
+        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        sliderHumor.setForeground(new java.awt.Color(255, 255, 255));
+        sliderHumor.setMajorTickSpacing(1);
+        sliderHumor.setMaximum(10);
+        sliderHumor.setPaintLabels(true);
+        sliderHumor.setPaintTicks(true);
+        sliderHumor.setValue(5);
+        sliderHumor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderHumorStateChanged(evt);
+            }
+        });
+
+        lblValor.setForeground(new java.awt.Color(255, 255, 255));
+        lblValor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValor.setText("Seu humor: 5");
+
+        btnRegistrar.setText("Registrar Humor");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        lblHumorRegistrado.setForeground(new java.awt.Color(255, 255, 255));
+        lblHumorRegistrado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHumorRegistrado.setText("Seu humor ja foi registrado hoje!");
 
         newpath.setText("NewPath");
         menuNewPath.add(newpath);
@@ -409,19 +476,42 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblOla, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(139, 139, 139))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(painel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(217, 217, 217)
+                        .addComponent(lblOla, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRecaida, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(268, 268, 268)
+                        .addComponent(panelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(166, 166, 166)
+                                .addComponent(painel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRegistrar)
+                                .addGap(188, 188, 188)
+                                .addComponent(btnFechar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(sliderHumor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFrase, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
@@ -429,46 +519,65 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnContadorSobriedade, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEstimativaEconomia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFechar, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(panelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(lblFrase, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEstimativaEconomia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnHumor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(lblHumorRegistrado, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lblOla)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblFrase)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator2)
-                    .addComponent(jSeparator1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnContadorSobriedade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEstimativaEconomia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(painel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnFechar)
-                            .addComponent(panelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addGap(25, 25, 25)
+                        .addComponent(lblOla))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRecaida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(lblFrase)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnContadorSobriedade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEstimativaEconomia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator4)
+                        .addComponent(jSeparator5))
+                    .addComponent(btnHumor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(painel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnFechar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(panelImagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblHumorRegistrado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sliderHumor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegistrar)
+                        .addGap(0, 28, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         panelLogo.getAccessibleContext().setAccessibleName("");
@@ -517,6 +626,89 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEstimativaEconomiaActionPerformed
 
+    private void btnHumorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHumorActionPerformed
+        // TODO add your handling code here:
+        TelaHumor telaHumor = new TelaHumor(loginUsuario);
+        telaHumor.setVisible(true);
+    }//GEN-LAST:event_btnHumorActionPerformed
+
+    private void btnRecaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecaidaActionPerformed
+        // TODO add your handling code here:
+        Integer resposta = JOptionPane.showConfirmDialog(null,"Deseja realmente registrar recaida?");
+        if (resposta == JOptionPane.YES_OPTION) {
+            LocalDate data4 = LocalDate.now();
+            Date dataAtual;
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String dataStr = data4.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
+                dataAtual = new Date(format.parse(dataStr).getTime());
+                } 
+
+            catch (ParseException e) {
+            throw new RuntimeException(e);
+            }
+
+            Contato contato = new Contato ();
+            contato.setLogin(loginUsuario);
+            contato.setDataAtual(dataAtual);
+            ContatoDao contatoDao = new ContatoDao();
+            contatoDao.atualizaData(contato);
+            this.dispose();
+            TelaPrincipal telaPrincipal = new TelaPrincipal(loginUsuario);
+            telaPrincipal.setVisible(true);
+            Contato contato2 = contatoDao.getContatoByLogin(loginUsuario);
+            String nome = contato2.getNome();
+            JOptionPane.showMessageDialog(null, "Sentimos muito, " + nome + 
+            ". \nLembre-se, recaídas são parte da jornada. Aprenda com elas e continue andando." +
+            "\nSeu Contador de Sobriedade foi redefinido, continue Firme!");
+           
+           
+            
+            }
+       
+        
+        
+    }//GEN-LAST:event_btnRecaidaActionPerformed
+
+    private void sliderHumorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderHumorStateChanged
+        // TODO add your handling code here:
+        int valor = sliderHumor.getValue();
+        lblValor.setText("Seu humor: " + valor);
+
+    }//GEN-LAST:event_sliderHumorStateChanged
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        Humor humor = new Humor(); 
+        int valor = sliderHumor.getValue();
+        LocalDate data3 = LocalDate.now();
+        Date dataHumor;
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String dataStr = data3.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); 
+            dataHumor = new Date(format.parse(dataStr).getTime());
+        } 
+
+        catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(dataHumor);
+        humor.setLogin(loginUsuario);
+        humor.setValor(valor);
+        humor.setDataHumor(dataHumor);
+        HumorDao humorDao = new HumorDao();
+        humorDao.adicionaHumor(humor);
+        JOptionPane.showMessageDialog(null, "Humor Diário registrado com sucesso!");
+        this.dispose();
+        TelaPrincipal telaPrincipal = new TelaPrincipal(loginUsuario);
+        telaPrincipal.setVisible(true);
+                
+                
+        
+        
+       
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -556,17 +748,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnContadorSobriedade;
     private javax.swing.JButton btnEstimativaEconomia;
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnHumor;
     private javax.swing.JButton btnNotas;
+    private javax.swing.JButton btnRecaida;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblFrase;
+    private javax.swing.JLabel lblHumorRegistrado;
     private javax.swing.JLabel lblOla;
+    private javax.swing.JLabel lblValor;
     private javax.swing.JMenuBar menuNewPath;
     private javax.swing.JMenu newpath;
     private java.awt.Panel painel1;
     private javax.swing.JPanel panelImagem;
     private java.awt.Panel panelLogo;
+    private javax.swing.JSlider sliderHumor;
     // End of variables declaration//GEN-END:variables
 }

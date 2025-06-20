@@ -1,5 +1,0 @@
-newpath.telas.TelaEstimativaDeEconomia
-newpath.telas.TelaEstimativaDeEconomia$2
-newpath.telas.TelaEstimativaDeEconomia$1
-newpath.telas.TelaEstimativaDeEconomia$4
-newpath.telas.TelaEstimativaDeEconomia$3

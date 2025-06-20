@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package newpath.telas;
+package telas;
 
 import dao.ContadorDao;
 import java.awt.Color;
